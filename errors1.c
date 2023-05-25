@@ -92,6 +92,7 @@ static char buffer[50];
 char s = 0;
 char *ptr;
 unsigned long a = num;
+
 if (!(flags & CONVERT_UNSIGNED) && num < 0)
 {
 a = -num;

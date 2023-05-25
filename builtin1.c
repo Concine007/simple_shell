@@ -63,9 +63,9 @@ if (node)
 q = _strchr(node->str, '=');
 for (z = node->str; z <= q; z++)
 _putchar(*z);
-_putchar('\');
+_putchar('/');
 _puts(q + 1);
-_puts("'\n");
+_puts("\n");
 return (0);
 }
 return (1);
@@ -96,5 +96,7 @@ for (x = 1; info->argv[x]; x++)
 q = _strchr(info->argv[x], '=');
 if (q)
 set_alias(info, info->argv[x]);
-else}
+else
+print_alias(node_starts_with(info->alias, info->argv[x], '='));
+}
 return (0);}

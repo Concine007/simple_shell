@@ -18,12 +18,12 @@ _memset((void *)new_head, 0, sizeof(list_t));
 new_head->num = num;
 if (str)
 {
-}
 new_head->str = _strdup(str);
 if (!new_head->str)
 {
 free(new_head);
 return (NULL);
+}
 }
 new_head->next = *head;
 *head = new_head;
@@ -108,12 +108,12 @@ while (node)
 {
 if (x == index)
 {
-}
-x++;
 prev_node->next = node->next;
 free(node->str);
 free(node);
 return (1);
+}
+x++;
 prev_node = node;
 node = node->next;
 }

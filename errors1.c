@@ -89,14 +89,14 @@ char *convert_number(long int num, int base, int flags)
 {
 static char *array;
 static char buffer[50];
-char s = 0;
+char sign = 0;
 char *ptr;
 unsigned long n = num;
 
 if (!(flags & CONVERT_UNSIGNED) && num < 0)
 {
 n = -num;
-s = '-';
+sign = '-';
 }
 array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" :
 "0123456789ABCDEF";
@@ -106,8 +106,8 @@ do {
 *--ptr = array[n % base];
 n /= base;
 } while (n != 0);
-if (s)
-*--ptr = s;
+if (sign)
+*--ptr = sign;
 return (ptr);
 }
 /**

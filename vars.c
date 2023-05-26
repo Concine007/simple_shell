@@ -9,29 +9,29 @@
 */
 int is_chain(info_t *info, char *buf, size_t *p)
 {
-size_t y = *p;
+	size_t y = *p;
 
-if (buf[y] == '|' && buf[y + 1] == '|')
-{
-buf[y] = 0;
-y++;
-info->cmd_buf_type = CMD_OR;
-}
-else if (buf[y] == '&' && buf[y + 1] == '&')
-{
-buf[y] = 0;
-y++;
-info->cmd_buf_type = CMD_AND;
-}
-else if (buf[y] == ';')
-{
-buf[y] = 0;
-info->cmd_buf_type = CMD_CHAIN;
-}
-else
-*p = y;
-return (0);
-return (1);
+	if (buf[y] == '|' && buf[y + 1] == '|')
+	{
+		buf[y] = 0;
+		y++;
+		info->cmd_buf_type = CMD_OR;
+	}
+	else if (buf[y] == '&' && buf[y + 1] == '&')
+	{
+		buf[y] = 0;
+		y++;
+		info->cmd_buf_type = CMD_AND;
+	}
+	else if (buf[y] == ';')
+	{
+		buf[y] = 0;
+		info->cmd_buf_type = CMD_CHAIN;
+	}
+	else
+		return (0);
+	*p = y;
+	return (1);
 }
 /**
 * check_chain - che cks we  sho uld c onti nue c haining
@@ -44,25 +44,25 @@ return (1);
 */
 void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 {
-size_t y = *p;
+	size_t y = *p;
 
-if (info->cmd_buf_type == CMD_AND)
-{
-if (info->status)
-{
-buf[i] = 0;
-y = len;
-}
-}
-if (info->cmd_buf_type == CMD_OR)
-{
-if (!info->status)
-{
-buf[i] = 0;
-y = len;
-}
-}
-*p = y;
+	if (info->cmd_buf_type == CMD_AND)
+	{
+		if (info->status)
+		{
+			buf[i] = 0;
+			y = len;
+		}
+	}
+	if (info->cmd_buf_type == CMD_OR)
+	{
+		if (!info->status)
+		{
+			buf[i] = 0;
+			y = len;
+		}
+	}
+	*p = y;
 }
 /**
 * replace_alias - rep la ces an ali ases str ing
@@ -98,27 +98,28 @@ return (1);
 int replace_vars(info_t *info)
 {
 int i = 0;
-list_t *n;
+list_t *node;
 for (i = 0; info->argv[i]; i++)
 {
 if (info->argv[i][0] != '$' || !info->argv[i][1])
 continue;
 if (!_strcmp(info->argv[i], "$?"))
 {
-replace_string(&(info->argv[i]), continue;
+replace_string(&(info->argv[i]),
+_strdup(convert_number(info->status, 10, 0)));
+continue;
 }
-_strdup(convert_number(info->status, 10, 0));
 if (!_strcmp(info->argv[i], "$$"))
 {
 replace_string(&(info->argv[i]),
-_strdup(convert_number(getpid(), 10, 0));
+_strdup(convert_number(getpid(), 10, 0)));
 continue;
 }
-n = node_starts_with(info->env, &info->argv[i][1], '=');
-if (n)
+node = node_starts_with(info->env, &info->argv[i][1], '=');
+if (node)
 {
 replace_string(&(info->argv[i]),
-_strdup(_strchr(n->str, '=') + 1));
+_strdup(_strchr(node->str, '=') + 1));
 continue;
 }
 replace_string(&info->argv[i], _strdup(""));

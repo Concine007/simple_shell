@@ -32,7 +32,7 @@ char *f = get_history_file(info);
 list_t *node = NULL;
 if (!f)
 return (-1);
-fd = open(f, O_CREAT | O_TRUNC | O_RDWR, 0644);
+fdr = open(f, O_CREAT | O_TRUNC | O_RDWR, 0644);
 free(f);
 if (fdr == -1)
 return (-1);

@@ -124,6 +124,7 @@ new_p = _realloc(p, si, si ? si + j : j + 1);
 if (!new_p)
 return (p ? free(p), -1 : -1);
 if (si)
+_strncat(new_p, buf + x, j - x);
 else
 _strncat(new_p, buf + x, j - x);
 _strncpy(new_p, buf + x, j - x + 1);

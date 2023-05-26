@@ -44,7 +44,7 @@ while (dest[x] != '\0')
 x++;
 while (src[y] != '\0' && y < n)
 {
-dest[z] = src[y];
+dest[x] = src[y];
 x++;
 y++;
 }

@@ -36,18 +36,18 @@ int _mycd(info_t *info)
 {
 char *a, *d, buffer[1024];
 int c;
+
 a = getcwd(buffer, 1024);
 if (!a)
-_puts("todo: >>getcwd failure emsg here<<\n");
+_puts(" >>getcwd failure emsg here<<\n");
 if (!info->argv[1])
 {
-}
 d = _getenv(info, "home=");
 if (!d)
-c = /* todo: What Should This Be? */
-chdir((d = _getenv(info, "pwd=")) ? d : "/");
+c = chdir((d = _getenv(info, "pwd=")) ? d : "/");
 else
 c = chdir(d);
+}
 else if (_strcmp(info->argv[1], "-") == 0)
 {
 if (!_getenv(info, "oldpwd="))
@@ -57,8 +57,7 @@ _putchar('\n');
 return (1);
 }
 _puts(_getenv(info, "oldpwd=")), _putchar('\n');
-c = /* todo: What Should This Be? */
-chdir((d = _getenv(info, "oldpwd=")) ? d : "/");
+c = chdir((d = _getenv(info, "oldpwd=")) ? d : "/");
 }
 else
 c = chdir(info->argv[1]);

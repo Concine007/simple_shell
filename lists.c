@@ -42,11 +42,11 @@ list_t *new, *node;
 if (!head)
 return (NULL);
 node = *head;
-new_node = malloc(sizeof(list_t));
+new = malloc(sizeof(list_t));
 if (!new)
 return (NULL);
 _memset((void *)new, 0, sizeof(list_t));
-new_node->num = num;
+new->num = num;
 if (str)
 {
 new->str = _strdup(str);
@@ -91,7 +91,7 @@ return (x);
 */
 int delete_node_at_index(list_t **head, unsigned int index)
 {
-list_t *node, *prev;
+list_t *node, *prev_node;
 unsigned int x = 0;
 if (!head || !*head)
 return (0);
@@ -110,11 +110,11 @@ if (x == index)
 {
 }
 x++;
-prev->next = node->next;
+prev_node->next = node->next;
 free(node->str);
 free(node);
 return (1);
-prev = node;
+prev_node = node;
 node = node->next;
 }
 return (0);

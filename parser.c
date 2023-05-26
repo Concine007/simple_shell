@@ -67,7 +67,7 @@ _strcat(path, "/");
 _strcat(path, cmd);
 if (is_cmd(info, path))
 return (path);
-if (!pathstr[i])
+if (!pathstr[x])
 break;
 c = x;
 }

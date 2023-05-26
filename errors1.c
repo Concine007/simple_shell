@@ -91,11 +91,11 @@ static char *array;
 static char buffer[50];
 char s = 0;
 char *ptr;
-unsigned long a = num;
+unsigned long n = num;
 
 if (!(flags & CONVERT_UNSIGNED) && num < 0)
 {
-a = -num;
+n = -num;
 s = '-';
 }
 array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" :
@@ -103,9 +103,9 @@ array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" :
 ptr = &buffer[49];
 *ptr = '\0';
 do {
-*--ptr = array[a % base];
-a /= base;
-} while (a != 0);
+*--ptr = array[n % base];
+n /= base;
+} while (n != 0);
 if (s)
 *--ptr = s;
 return (ptr);

@@ -87,18 +87,16 @@ info->linecount_flag = 0;
 for (x = 0, y = 0; info->arg[x]; y++)
 if (!is_delim(info->arg[x], " \t\n"))
 y++;
-if (!k)
+if (!y)
 return;
 path = find_path(info, _getenv(info, "PATH="), info->argv[0]);
 if (path)
 {
+info->path = path;
+fork_cmd(info);
 }
 else
 {
-}
-}
-info->path = path;
-fork_cmd(info);
 if ((interactive(info) || _getenv(info, "PATH=")
 || info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
 fork_cmd(info);
@@ -106,6 +104,8 @@ else if (*(info->arg) != '\n')
 {
 info->status = 127;
 print_error(info, "not found\n");
+}
+}
 }
 /**
 * fork_cmd - foorks an exeec threead to run cmd
@@ -133,12 +133,12 @@ exit(1);
 }
 else
 {
-}
-}
 wait(&(info->status));
 if (WIFEXITED(info->status))
 {
 info->status = WEXITSTATUS(info->status);
 if (info->status == 126)
 print_error(info, "Permission denied\n");
+}
+}
 }

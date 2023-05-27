@@ -15,6 +15,7 @@ void my_exit(void)
 void my_exit_status(char **args)
 {
 	int state = atoi(args[1]);
+
 	free(args);
 	exit(state);
 }

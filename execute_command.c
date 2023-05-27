@@ -50,7 +50,7 @@ void execute_command(char **args, char *arg)
  */
 char *search_path(char *filename)
 {
-	char *path, *s_path, *all_path;
+	char *path, *path_env, *full_path;
 
 	if (filename[0] == '/')
 	{
@@ -60,23 +60,23 @@ char *search_path(char *filename)
 			return (NULL);
 	}
 
-	s_path = malloc(MAX_PATH_LEN * sizeof(char));
-	snprintf(s_path, MAX_PATH_LEN, "/bin:%s", getenv("PATH"));
-	path = strtok(s_path, ":");
-	all_path = malloc(MAX_PATH_LEN * sizeof(char));
+	path_env = malloc(MAX_PATH_LEN * sizeof(char));
+	snprintf(path_env, MAX_PATH_LEN, "/bin:%s", getenv("PATH"));
+	path = strtok(path_env, ":");
+	full_path = malloc(MAX_PATH_LEN * sizeof(char));
 
 	while (path != NULL)
 	{
-		snprintf(all_path, MAX_PATH_LEN, "%s/%s", path, filename);
-		if (access(all_path, F_OK) == 0)
+		snprintf(full_path, MAX_PATH_LEN, "%s/%s", path, filename);
+		if (access(full_path, F_OK) == 0)
 		{
-			free(s_path);
-			return (realpath(all_path, NULL));
+			free(path_env);
+			return (realpath(full_path, NULL));
 		}
 		path = strtok(NULL, ":");
 	}
 
-	free(s_path);
-	free(all_path);
+	free(path_env);
+	free(full_path);
 	return (NULL);
 }
